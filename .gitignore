@@ -1,0 +1,12 @@
+.vs/
+bin/
+obj/
+*.user
+*.suo
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+publish/
+*.log
+node_modules/
+wwwroot/lib/

@@ -1,12 +1,18 @@
+/* ============================================
+   CSS VARIABLES & GLOBAL STYLES
+   ============================================ */
 :root {
-    /* inisialisasi dan simpan warna dalam variable */
+    /* Color Variables */
     --primary: #f2b401;
+    --secondary: #3e1407;
     --bg: #3e1407;
     --bg-nav: #3e1407;
+    --font-family-1: "Poppins", sans-serif;
+    --white-color: #000;
+    --black-color: #fff;
 }
 
 * {
-    /* set default value of all the css value */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -25,7 +31,9 @@ body {
     color: #fff;
 }
 
-/* Navbar */
+/* ============================================
+   NAVBAR STYLING
+   ============================================ */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -40,54 +48,56 @@ body {
     z-index: 9999;
 }
 
-.navbar .navbar-logo {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-}
-
-.navbar .navbar-logo span {
-    color: var(--primary);
-}
-
-.navbar .navbar-nav a {
-    color: #fff;
-    display: inline-block;
-    font-size: 1.2rem;
-    margin: 0 1rem;
-}
-
-    .navbar .navbar-nav a:hover {
-        color: var(--primary);
+    .navbar .navbar-logo {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
     }
 
-    .navbar .navbar-nav a::after {
-        content: "";
-        display: block;
-        padding-bottom: 0.5rem;
-        border-bottom: 0.1rem solid var(--primary);
-        transform: scaleX(0);
-        transition: 0.2s linear;
+        .navbar .navbar-logo span {
+            color: var(--primary);
+        }
+
+    .navbar .navbar-nav a {
+        color: #fff;
+        display: inline-block;
+        font-size: 1.2rem;
+        margin: 0 1rem;
     }
 
-    .navbar .navbar-nav a:hover:after {
-        transform: scaleX(0.5);
+        .navbar .navbar-nav a:hover {
+            color: var(--primary);
+        }
+
+        .navbar .navbar-nav a::after {
+            content: "";
+            display: block;
+            padding-bottom: 0.5rem;
+            border-bottom: 0.1rem solid var(--primary);
+            transform: scaleX(0);
+            transition: 0.2s linear;
+        }
+
+        .navbar .navbar-nav a:hover::after {
+            transform: scaleX(0.5);
+        }
+
+    .navbar .navbar-extra a {
+        color: #fff;
+        margin: 0 0.5rem;
     }
 
-.navbar .navbar-extra a {
-    color: #fff;
-    margin: 0 0.5rem;
-}
+        .navbar .navbar-extra a:hover {
+            color: var(--primary);
+        }
 
-.navbar .navbar-extra a:hover {
-    color: var(--primary);
-}
-
-#hamburger-menu {
+#hamburger-registration {
     display: none;
 }
 
-/* Hero Section */
+/* ============================================
+   HERO SECTION STYLING
+   ============================================ */
 .hero {
     min-height: 90vh;
     display: flex;
@@ -100,189 +110,157 @@ body {
     position: relative;
 }
 
-.hero::after {
-content: "";
-display: block;
-position: absolute;
-width: 100%;
-height: 30%;
-bottom: 0;
-background: linear-gradient(0deg, rgba(1, 1, 3, 1) 8%, rgba(255, 255, 255, 0) 50%);
-}
-
-.hero .content {
-padding: 1.4rem 7%;
-max-width: 60rem;
-}
-
-.hero .content h1 {
-    font-size: 5em;
-    color: #fff;
-    text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
-    line-height: 1.2;
-}
-
-    .hero .content h1 span {
-        color: var(--prinmary);
-    }
-
-.hero .content p {
-    font-size: 1.6rem;
-    margin-top: 0.5rem;
-    line-height: 1.4;
-    font-weight: 100;
-    text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
-    mix-blend-mode: difference;
-}
-
-.hero .content .cta {
-    margin-top: 1rem;
-    display: inline-block;
-    padding: 1rem 3rem;
-    font-size: 1.4rem;
-    color: #fff;
-    background-color: var(--primary);
-    border-radius: 0.5rem;
-    box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
-}
-
-/* About Section */
-.about,
-.menu,
-.contact {
-    padding: 8rem 7% 1.4rem;
-}
-
-.about h2,
-.menu h2,
-.contact h2 {
-text-align: center;
-font-size: 2.6rem;
-margin-bottom: 3rem;
-}
-
-.about h2 span,
-.menu h2 span,
-.contact h2 span {
-    color: var(--primary);
-}
-
-.about .row {
-display: flex;
-}
-
-.about .row .about-img {
-    flex: 1 1 45rem;
-}
-
-    .about .row .about-img img {
+    .hero::after {
+        content: "";
+        display: block;
+        position: absolute;
         width: 100%;
+        height: 30%;
+        bottom: 0;
+        background: linear-gradient(0deg, rgba(1, 1, 3, 1) 8%, rgba(255, 255, 255, 0) 50%);
     }
 
-.about .row .content {
-    flex: 1 1 35rem;
-    padding: 0 1rem;
+    .hero .content {
+        padding: 1rem 7%;
+        max-width: 60rem;
+    }
+
+        .hero .content h1 {
+            font-size: 5em;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+            line-height: 1.2;
+        }
+
+            .hero .content h1 span {
+                color: var(--primary);
+            }
+
+        .hero .content p {
+            font-size: 1.6rem;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+            font-weight: 100;
+            text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+            mix-blend-mode: difference;
+        }
+
+        .hero .content .cta {
+            margin-top: 1rem;
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.4rem;
+            color: #fff;
+            background-color: var(--primary);
+            border-radius: 0.5rem;
+            box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+        }
+
+/* ============================================
+   REGISTRATION SECTION STYLING
+   ============================================ */
+.registration {
+    padding: 4rem 6% 1.3rem;
+    color: var(--black-color);
 }
 
-    .about .row .content h3 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-
-    .about .row .content p {
-        margin-bottom: 0.8rem;
-        font-size: 1.4rem;
+    .registration p {
+        color: #000;
+        text-align: center;
+        max-width: 30rem;
+        margin: auto;
         font-weight: 100;
-        line-height: 1.6rem;
+        line-height: 1.6;
     }
 
-.about .row .about-img img {
-    width: 100%;
-}
+    .registration h2 {
+        text-align: center;
+        font-size: 2.6rem;
+        margin-bottom: 3rem;
+    }
 
-/* Menu Section */
-.menu h2,
+        .registration h2 span {
+            color: var(--primary);
+        }
+
+    .registration .row .card {
+        width: 33%;
+        flex: 0 0 auto;
+    }
+
+    .registration .card {
+        background-color: transparent;
+    }
+
+    .registration .card-header {
+        background-color: #ffc107;
+        color: #ffffff;
+    }
+
+    .registration .card-body {
+        background-color: #ffffff;
+        color: #212529;
+    }
+
+        .registration .card-body .btn {
+            background-color: var(--primary);
+        }
+
+/* ============================================
+   CONTACT SECTION STYLING
+   ============================================ */
 .contact h2 {
-margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
-.menu p,
-.contact p {
-text-align: center;
-max-width: 30rem;
-margin: auto;
-font-weight: 100;
-line-height: 1.6;
-}
-
-.menu .row {
-display: flex;
-flex-wrap: wrap;
-margin-top: 5rem;
-justify-content: center;
-}
-
-.menu .row .menu-card {
-text-align: center;
-padding-bottom: 4rem;
-}
-
-.menu .row .menu-card img {
-    border-radius: 50%;
-    width: 70%;
-}
-
-.menu .row .menu-card .menu-card-title {
-    margin-top: 1rem auto 0.5rem;
-}
-
-/* Contact Section */
 .contact .row {
-display: flex;
-margin-top: 2rem;
-background-color: #222;
-}
-
-.contact .row .map {
-flex: 1 1 45rem;
-width: 100%;
-object-fit: cover;
-}
-
-.contact .row form {
-flex: 1 1 45rem;
-padding: 5rem 2rem;
-text-align: center;
-}
-
-.contact .row form .input-group {
     display: flex;
-    align-items: center;
     margin-top: 2rem;
-    background-color: var(--bg);
-    border: 1px solid #eee;
-    padding-left: 2rem;
+    background-color: #222;
 }
 
-    .contact .row form .input-group input {
+    .contact .row .map {
+        flex: 1 1 45rem;
         width: 100%;
-        padding: 2rem;
-        font-size: 1.7rem;
-        background: none;
-        color: #fff;
+        object-fit: cover;
     }
 
-.contact .row form button {
-    margin-top: 3rem;
-    display: inline-block;
-    padding: 1rem 3rem;
-    font-size: 1.7rem;
-    color: #fff;
-    background-color: var(--primary);
-    cursor: pointer;
-}
+    .contact .row form {
+        flex: 1 1 45rem;
+        padding: 5rem 2rem;
+        text-align: center;
+    }
 
-/* Footer */
+        .contact .row form .input-group {
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+            background-color: var(--bg);
+            border: 1px solid #eee;
+            padding-left: 2rem;
+        }
+
+            .contact .row form .input-group input {
+                width: 100%;
+                padding: 2rem;
+                font-size: 1.7rem;
+                background: none;
+                color: #fff;
+            }
+
+        .contact .row form button {
+            margin-top: 3rem;
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.7rem;
+            color: #fff;
+            background-color: var(--primary);
+            cursor: pointer;
+        }
+
+/* ============================================
+   FOOTER STYLING
+   ============================================ */
 footer {
     background-color: var(--primary);
     text-align: center;
@@ -290,54 +268,59 @@ footer {
     margin-top: 3rem;
 }
 
-footer .socials {
-padding: 1rem 0;
-}
-
-footer .socials a {
-    color: #fff;
-    margin: 1rem;
-}
-
-    footer .socials a:hover,
-    footer .links a:hover {
-        color: var(--bg);
+    footer .socials {
+        padding: 1rem 0;
     }
 
-footer .links {
-margin-bottom: 1.4rem;
-}
+        footer .socials a {
+            color: #fff;
+            margin: 1rem;
+        }
 
-footer .links a {
-    color: #fff;
-    padding: 0.7rem 1rem;
-}
+            footer .socials a:hover {
+                color: var(--bg);
+            }
 
-.footer .credit {
-    font-size: 0.8rem;
-}
-
-    .footer .credit a {
-        color: var(--bg);
-        font-weight: 700;
+    footer .links {
+        margin-bottom: 1.4rem;
     }
 
-/* Media Queries => responsiveness */
+        footer .links a {
+            color: #fff;
+            padding: 0.7rem 1rem;
+        }
 
-/* Laptop */
+            footer .links a:hover {
+                color: var(--bg);
+            }
+
+    footer .credit {
+        font-size: 0.8rem;
+    }
+
+        footer .credit a {
+            color: var(--bg);
+            font-weight: 700;
+        }
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Laptop - Max Width 1366px */
 @media (max-width: 1366px) {
     html {
         font-size: 75%;
     }
 }
 
-/* Tablet */
+/* Tablet - Max Width 758px */
 @media (max-width: 758px) {
     html {
         font-size: 62.5%;
     }
 
-    #hamburger-menu {
+    #hamburger-registration {
         display: inline-block;
     }
 
@@ -351,50 +334,27 @@ footer .links a {
         transition: 0.3s;
     }
 
-    .navbar .navbar-nav.active {
-        right: 0;
-    }
+        .navbar .navbar-nav.active {
+            right: 0;
+        }
 
-    .navbar .navbar-nav a {
-        color: var(--bg);
-        display: block;
-        margin: 1.5rem;
-        padding: 0.5rem;
-        font-size: 2rem;
-    }
+        .navbar .navbar-nav a {
+            color: var(--bg);
+            display: block;
+            margin: 1.5rem;
+            padding: 0.5rem;
+            font-size: 2rem;
+        }
 
-    .navbar .navbar-nav a::after {
-        transform-origin: 0 0;
-    }
+            .navbar .navbar-nav a::after {
+                transform-origin: 0 0;
+            }
 
-    .navbar .navbar-nav a:hover::after {
-        transform: scaleX(0.2);
-    }
+            .navbar .navbar-nav a:hover::after {
+                transform: scaleX(0.2);
+            }
 
-    .about .row {
-        flex-wrap: wrap;
-    }
-
-    .about .row .about-img img {
-        height: 24rem;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    .about .row .content {
-        padding: 0;
-    }
-
-    .about .row .content h3 {
-        margin-top: 1rem;
-        font-size: 2rem;
-    }
-
-    .about .row .content p {
-        font-size: 1.6rem;
-    }
-
-    .menu p {
+    .registration p {
         font-size: 1.2rem;
     }
 
@@ -402,15 +362,16 @@ footer .links a {
         flex-wrap: wrap;
     }
 
-    .contact .row .map {
-        height: 30rem;
-    }
+        .contact .row .map {
+            height: 30rem;
+        }
 
-    .contact .row form {
-        padding-top: 0;
-    }
+        .contact .row form {
+            padding-top: 0;
+        }
 }
-/* Mobile Phones */
+
+/* Mobile Phones - Max Width 450px */
 @media (max-width: 450px) {
     html {
         font-size: 55%;

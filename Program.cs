@@ -1,3 +1,7 @@
+using CampingRohani.Data;
+using Microsoft.EntityFrameworkCore;
+using CampingRohani.Data;
+
 namespace CampingRohani
 {
     public class Program
@@ -9,7 +13,21 @@ namespace CampingRohani
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<CampingRohaniContext>(options =>
+                options.UseMySql(conn, ServerVersion.AutoDetect(conn))
+            );
+
             var app = builder.Build();
+
+            // Seed database on startup
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var context = scope.ServiceProvider.GetRequiredService<CampingRohaniContext>();
+            //    var seeder = new DatabaseSeeder(context);
+            //    seeder.SeedAsync().Wait();
+            //}
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

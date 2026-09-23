@@ -1,8 +1,12 @@
 ﻿@page
+@using System.Globalization
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
+<!-- ============================================
+ HERO SECTION
+ ============================================ -->
 
     <!-- Hero Section Start -->
     <section class="hero w-100 p-0 m-0" id="home">
@@ -11,57 +15,182 @@
         </main>
     </section>
     <!-- Hero Section End -->
+<!-- ============================================ -->
 
-    <!--   Section Start -->
-    <section id="registration" class="registration align-content-center">
-        <p class="subtitle text-white">Pilih Camping sesuai usiamu!</p>
-        <h2><span>Daftar</span> Yuk!</h2>
-
-        <div class="row w-auto d-inline-flex flex-row flex-nowrap justify-content-around">
-            <div class="card overflow-hidden">
-                <h5 class="card-header bg-warning text-white">
-                    Camp SD (Kelas IV - VII)
-                </h5>
-                <div class="card-body bg-white text-dark">
-                    <h5 class="card-title">
-                        <i data-feather="calendar"></i> July 2027
-                    </h5>
-                    <p class="card-text">
-                        With supporting text below as a natural lead-in to additional content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Daftar!</a>
-                </div>
+    <!-- ============================================
+     REGISTRATION SECTION
+     ============================================ -->
+    <section id="registration" class="registration-section">
+        <div class="registration-container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span>Pilih</span> Camping Sesuai Usiamu
+                </h2>
+                <p class="section-subtitle">Tiga pilihan camping menarik untuk berbagai kelompok umur dengan pengalaman rohani yang mendalam</p>
             </div>
 
-            <div class="card overflow-hidden">
-                <h5 class="card-header bg-warning text-white">
-                    Camp Siswa (Kelas VIII - XII)
-                </h5>
-                <div class="card-body bg-white text-dark">
-                    <h5 class="card-title">
-                        <i data-feather="calendar"></i> July 2027
-                    </h5>
-                    <p class="card-text">
-                        With supporting text below as a natural lead-in to additional content.
-                    </p>
-                    <a href="#" class="btn btn-primary m-auto">Daftar!</a>
-                </div>
-            </div>
+            <!-- Event Cards -->
+            <div class="events-grid">
+                <!-- Camp Mahasiswa Card -->
 
-            <div class="card overflow-hidden">
-                <h5 class="card-header bg-warning text-white">
-                    Camp Mahasiswa dan Pekerja Muda
-                </h5>
-                <div class="card-body bg-white text-dark">
-                    <h5 class="card-title">
-                        <i data-feather="calendar"></i> July 2027
-                    </h5>
-                    <p class="card-text">
-                        With supporting text below as a natural lead-in to additional content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Daftar!</a>
-                </div>
+            @if (Model.Camps.Count > 0)
+            {
+                @foreach(var camp in Model.Camps)
+                {
+                    <div class="event-card">
+                        <div class="card-image">
+                            <div class="card-badge">
+                                <span class="badge-text">@camp.ParticipantCategory</span>
+                            </div>
+                        </div>
+
+                        <div class="card-content">
+                            <h3 class="card-title">@camp.CampName</h3>
+                            <p class="card-subtitle">@camp.ParticipantCategory</p>
+
+                            <div class="card-details">
+                                <div class="detail-row">
+                                    <i data-feather="calendar"></i>
+                                    <div>
+                                        <span class="detail-label">Tanggal</span>
+                                        <span class="detail-value">@camp.StartDate.ToString("dd MMMM", new CultureInfo("id-ID")) - @camp.EndDate.ToString("dd MMMM", new CultureInfo("id-ID")) @camp.StartDate.Year</span>
+                                    </div>
+                                </div>
+
+                                <div class="detail-row">
+                                    <i data-feather="map-pin"></i>
+                                    <div>
+                                        <span class="detail-label">Lokasi</span>
+                                        <span class="detail-value">@camp.CampLocation</span>
+                                    </div>
+                                </div>
+
+                                <div class="detail-row highlight">
+                                    <i data-feather="tag"></i>
+                                    <div>
+                                        <span class="detail-label">Harga</span>
+                                        <span class="detail-value">@camp.Price.ToString("C0", new CultureInfo("id-ID"))</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if(camp.IsRegistrationOpen && camp.StartDate > DateTime.UtcNow)
+                            {
+                                <a class="btn btn-register" asp-page="/RegistrationPage" asp-route-campId="@camp.CampId">
+                                    <i data-feather="arrow-right"></i> Daftar Sekarang
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="registration-status closed text-danger">
+                                    <i data-feather="x-circle"></i>
+                                    <span>Pendaftaran Ditutup</span>
+                                </div>
+							}
+                        </div>
+                    </div>
+                }
+            }
             </div>
         </div>
     </section>
-    <!-- Registration Section End -->
+    <!-- ========================================================================================= -->
+<!-- ============================================
+ CONTACT SECTION
+ ============================================ -->
+<section id="contact" class="contact-section">
+    <!-- Contact Search -->
+    <div class="contact-container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i data-feather="phone"></i>
+                Hubungi Kami
+            </h2>
+            <p class="section-subtitle">Pilih daerah Anda dan hubungi contact person untuk pertanyaan lebih lanjut</p>
+        </div>
+
+        <!-- Contact Search Form -->
+        <form method="get" asp-page="/Index" class="contact-search-form mb-4">
+            <div class="search-input-group">
+                <input asp-for="SearchRegion"
+                       type="text"
+                       class="contact-search-input"
+                       placeholder="Cari nama wilayah (Jakarta, Bandung, Malang, dll)..."
+                       autocomplete="off" />
+
+                <button type="submit" class="contact-search-button">
+                    <i data-feather="search"></i>
+                    Cari
+                </button>
+
+                @if (!string.IsNullOrWhiteSpace(Model.SearchRegion))
+                {
+                    <a asp-page="/Index" class="contact-search-reset">
+                        <i data-feather="x"></i>
+                        Clear
+                    </a>
+                }
+            </div>
+        </form>
+
+        <!-- Contact Grid -->
+        <div class="contact-grid">
+            @if (Model.ContactPersons.Count > 0)
+            {
+                @foreach (var contactPerson in Model.ContactPersons)
+                {
+                    <a href="https://wa.me/@contactPerson.Phone?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20Camping%20Rohani%202026"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="contact-card">
+                        <div class="contact-card-body">
+                            <h3>@contactPerson.Region.RegionName</h3>
+
+                            <div class="contact-info">
+                                <p class="contact-person">
+                                    @contactPerson.Name
+                                </p>
+
+                                <p class="contact-phone">
+                                    <i data-feather="phone"></i>
+                                    @contactPerson.Phone
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card-footer">
+                            <span class="whatsapp-badge">
+                                <i data-feather="send"></i>
+                                Chat WhatsApp
+                            </span>
+                        </div>
+                    </a>
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.SearchRegion))
+            {
+                <div class="contact-fallback">
+                    <i data-feather="search"></i>
+                    <p>
+                        Tidak ada contact person untuk wilayah <strong>"@Model.SearchRegion"</strong>.
+                    </p>
+                    <a asp-page="/Index" class="btn btn-sm btn-outline-primary mt-3">
+                        Lihat Semua Wilayah
+                    </a>
+                </div>
+			}
+            else
+            {
+                <div class="contact-fallback">
+                    <p>Belum ada contact person yang tersedia.</p>
+                </div>
+            }
+        </div>
+
+        <!-- Contact Fallback -->
+        <div class="contact-fallback" id="contactFallback" style="display: none;">
+            <p>Daftar contact person sedang dimuat. Silakan coba lagi dalam beberapa saat.</p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,454 @@
+﻿@page
+@model CampingRohani.Pages.PaymentPageModel
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<section class="payment-section">
+    <div class="payment-container">
+        <!-- PAYMENT STATUS HEADER -->
+        <div class="payment-header" id="paymentHeader">
+            <div class="status-badge" data-status="notpaid">
+                <i data-feather="alert-circle"></i>
+                <div class="status-content">
+                    <h2>Status Pembayaran</h2>
+                    <p class="status-message" id="statusMessage">Belum Dibayar</p>
+                </div>
+            </div>
+            <div class="payment-info">
+                <div class="info-item">
+                    <span class="info-label">Nama Peserta:</span>
+                    <span class="info-value" id="participantName">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Jenis Camping:</span>
+                    <span class="info-value" id="campName">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Total Biaya:</span>
+                    <span class="info-value" id="totalAmount">Rp 0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAYMENT CONTENT -->
+        <div class="payment-content">
+            <div class="payment-left">
+                <!-- CONTACT PERSONS BY REGION -->
+                <div class="contact-section">
+                    <h3 class="section-title">
+                        <i data-feather="map-pin"></i> Pilih Daerah Anda
+                    </h3>
+
+                    <div class="region-selector">
+                        <div class="region-tabs">
+                            @if (Model.RegionsWithContacts != null && Model.RegionsWithContacts.Count > 0)
+                            {
+                                @foreach (var region in Model.RegionsWithContacts)
+                                {
+                                    <button type="button" class="region-tab" data-region-id="@region.RegionId">
+                                        <span>@region.Region.RegionName</span>
+                                    </button>
+                                }
+                            }
+                        </div>
+
+                        <!-- CONTACT PERSON CARDS -->
+                        <div class="contact-cards">
+                            @if (Model.RegionsWithContacts != null && Model.RegionsWithContacts.Count > 0)
+                            {
+                                @foreach (var region in Model.RegionsWithContacts)
+                                {
+                                    <div class="region-contacts" id="region-@region.RegionId" style="display: none;">
+                                        @foreach (var contact in region.Region.ContactPersons)
+                                        {
+                                            <div class="contact-card">
+                                                <div class="contact-header">
+                                                    <h4>@contact.Name</h4>
+                                                    <span class="contact-role">Contact Person</span>
+                                                </div>
+                                                <div class="contact-body">
+                                                    <div class="contact-detail">
+                                                        <span class="detail-label">
+                                                            <i data-feather="phone"></i> Telepon:
+                                                        </span>
+                                                        <span class="detail-value">@contact.Phone</span>
+                                                    </div>
+                                                    <div class="contact-detail">
+                                                        <span class="detail-label">
+                                                            <i data-feather="bank"></i> Rekening:
+                                                        </span>
+                                                        <div class="bank-account">
+                                                            <input type="text" class="account-number" value="@contact.AccountNumber" readonly>
+                                                            <button type="button" class="btn-copy" onclick="copyToClipboard('@contact.AccountNumber')">
+                                                                <i data-feather="copy"></i> Salin
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="contact-detail">
+                                                        <span class="detail-label">
+                                                            <i data-feather="user"></i> Atas Nama:
+                                                        </span>
+                                                        <span class="detail-value">@contact.AccountName</span>
+                                                    </div>
+                                                    <div class="contact-detail">
+                                                        <span class="detail-label">
+                                                            <i data-feather="building"></i> Bank:
+                                                        </span>
+                                                        <span class="detail-value">@contact.BankName</span>
+                                                    </div>
+                                                </div>
+                                                <div class="contact-footer">
+                                                    <button type="button" class="btn btn-select-contact" data-contact-id="@contact.ContactPersonId" data-contact-name="@contact.Name">
+                                                        Pilih
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAYMENT TYPE SELECTION -->
+                <div class="payment-type-section">
+                    <h3 class="section-title">
+                        <i data-feather="credit-card"></i> Jenis Pembayaran
+                    </h3>
+
+                    <div class="payment-type-options">
+                        <div class="payment-option">
+                            <input type="radio" id="fullPayment" name="paymentType" value="FullPayment" checked>
+                            <label for="fullPayment" class="option-label">
+                                <span class="option-title">Pembayaran Penuh</span>
+                                <span class="option-desc">Bayar seluruh biaya camping sekaligus</span>
+                            </label>
+                        </div>
+
+                        <div class="payment-option">
+                            <input type="radio" id="depositPayment" name="paymentType" value="Deposit">
+                            <label for="depositPayment" class="option-label">
+                                <span class="option-title">Cicilan / DP</span>
+                                <span class="option-desc">Bayar sebagian sebagai uang muka</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAYMENT FORM -->
+            <div class="payment-right">
+                <form id="paymentForm" method="post" enctype="multipart/form-data" class="payment-form">
+                    <input type="hidden" name="RegistrationId" id="RegistrationId" value="@Model.RegistrationId">
+                    <input type="hidden" name="ContactPersonId" id="ContactPersonId">
+                    <input type="hidden" name="PaymentType" id="PaymentType" value="FullPayment">
+
+                    <h3 class="section-title">
+                        <i data-feather="receipt"></i> Konfirmasi Pembayaran
+                    </h3>
+
+                    <!-- TRANSFER AMOUNT -->
+                    <div class="form-group">
+                        <label for="transferAmount" class="form-label">
+                            Jumlah Transfer <span class="required">*</span>
+                        </label>
+                        <div class="amount-input-group">
+                            <span class="currency">Rp</span>
+                            <input type="number" class="form-control amount-input" id="transferAmount" name="Amount" placeholder="0" min="0" step="1000" required>
+                        </div>
+                        <small class="form-hint">Masukkan jumlah yang sudah Anda transfer</small>
+                        <div class="amount-note" id="amountNote"></div>
+                    </div>
+
+                    <!-- TRANSFER DATE -->
+                    <div class="form-group">
+                        <label for="transferDate" class="form-label">
+                            Tanggal Transfer <span class="required">*</span>
+                        </label>
+                        <input type="datetime-local" class="form-control" id="transferDate" name="PaymentTime" required>
+                        <small class="form-hint">Tanggal dan waktu Anda melakukan transfer</small>
+                    </div>
+
+                    <!-- SELECTED CONTACT -->
+                    <div class="form-group">
+                        <label class="form-label">Contact Person Terpilih</label>
+                        <div class="selected-contact-box">
+                            <p id="selectedContactText" class="text-muted">Silakan pilih contact person di sebelah kiri</p>
+                            <div id="selectedContactInfo" style="display: none;">
+                                <div class="contact-info-item">
+                                    <span class="label">Nama:</span>
+                                    <span class="value" id="selectedContactName">-</span>
+                                </div>
+                                <div class="contact-info-item">
+                                    <span class="label">Telepon:</span>
+                                    <span class="value" id="selectedContactPhone">-</span>
+                                </div>
+                                <div class="contact-info-item">
+                                    <span class="label">Daerah:</span>
+                                    <span class="value" id="selectedContactRegion">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PROOF OF PAYMENT -->
+                    <div class="form-group">
+                        <label for="proofImage" class="form-label">
+                            Bukti Transfer <span class="required">*</span>
+                        </label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <input type="file" id="proofImage" name="ProofImage" class="file-input" accept="image/*" required>
+                            <div class="upload-content">
+                                <i data-feather="upload-cloud"></i>
+                                <p class="upload-text">Drag dan drop atau klik untuk upload</p>
+                                <small class="upload-hint">Format: JPG, PNG, PDF (Max 5MB)</small>
+                            </div>
+                        </div>
+                        <div id="filePreview" class="file-preview" style="display: none;">
+                            <img id="previewImage" src="" alt="Preview">
+                            <button type="button" class="btn-remove-file" onclick="removeFile()">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- NOTES -->
+                    <div class="form-group">
+                        <label for="notes" class="form-label">Catatan (Opsional)</label>
+                        <textarea class="form-control" id="notes" name="Notes" rows="3" placeholder="Catatan tambahan tentang pembayaran Anda..."></textarea>
+                    </div>
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="goBack()">
+                            <i data-feather="arrow-left"></i> Kembali
+                        </button>
+                        <button type="submit" class="btn btn-submit">
+                            <i data-feather="send"></i> Kirim Pembayaran
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize feather icons
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+
+            // Region tab functionality
+            const regionTabs = document.querySelectorAll('.region-tab');
+            regionTabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    const regionId = this.dataset.regionId;
+                    showRegionContacts(regionId);
+
+                    // Update active tab
+                    regionTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Show first region by default
+            if (regionTabs.length > 0) {
+                regionTabs[0].click();
+            }
+
+            // Contact person selection
+            const contactButtons = document.querySelectorAll('.btn-select-contact');
+            contactButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    selectContact(this);
+                });
+            });
+
+            // Payment type change
+            const paymentTypeInputs = document.querySelectorAll('input[name="paymentType"]');
+            paymentTypeInputs.forEach(input => {
+                input.addEventListener('change', function () {
+                    document.getElementById('PaymentType').value = this.value;
+                    updateAmountNote();
+                });
+            });
+
+            // Amount input change
+            const amountInput = document.getElementById('transferAmount');
+            amountInput.addEventListener('input', updateAmountNote);
+
+            // File upload handling
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const fileInput = document.getElementById('proofImage');
+
+            fileUploadArea.addEventListener('click', () => fileInput.click());
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.add('drag-over');
+            });
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.classList.remove('drag-over');
+            });
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('drag-over');
+                if (e.dataTransfer.files.length > 0) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect(e.dataTransfer.files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', function () {
+                if (this.files.length > 0) {
+                    handleFileSelect(this.files[0]);
+                }
+            });
+
+            // Form submission
+            document.getElementById('paymentForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (validateForm()) {
+                    showConfirmationModal();
+                }
+            });
+
+            // Set default date to today
+            const today = new Date();
+            const isoString = today.toISOString().slice(0, 16);
+            document.getElementById('transferDate').value = isoString;
+        });
+
+        function showRegionContacts(regionId) {
+            const regionContacts = document.querySelectorAll('.region-contacts');
+            regionContacts.forEach(el => el.style.display = 'none');
+            const selectedRegion = document.getElementById('region-' + regionId);
+            if (selectedRegion) {
+                selectedRegion.style.display = 'block';
+            }
+        }
+
+        function selectContact(button) {
+            const contactId = button.dataset.contactId;
+            const contactName = button.dataset.contactName;
+
+            document.getElementById('ContactPersonId').value = contactId;
+            document.getElementById('selectedContactText').style.display = 'none';
+            document.getElementById('selectedContactInfo').style.display = 'block';
+            document.getElementById('selectedContactName').textContent = contactName;
+
+            // Update button states
+            document.querySelectorAll('.btn-select-contact').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+
+        function updateAmountNote() {
+            const amount = parseFloat(document.getElementById('transferAmount').value) || 0;
+            const totalAmount = parseFloat(document.getElementById('totalAmount').dataset.amount) || 0;
+            const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+            const noteEl = document.getElementById('amountNote');
+
+            if (amount === 0) {
+                noteEl.innerHTML = '';
+                return;
+            }
+
+            if (paymentType === 'FullPayment') {
+                if (amount === totalAmount) {
+                    noteEl.innerHTML = '<span class="success">✓ Jumlah pembayaran sesuai</span>';
+                } else if (amount > totalAmount) {
+                    noteEl.innerHTML = '<span class="warning">⚠ Jumlah melebihi total biaya</span>';
+                } else {
+                    noteEl.innerHTML = '<span class="warning">⚠ Jumlah kurang dari total biaya</span>';
+                }
+            } else if (paymentType === 'Deposit') {
+                noteEl.innerHTML = '<span class="info">ℹ DP minimum 30% dari total biaya</span>';
+            }
+        }
+
+        function handleFileSelect(file) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                alert('Ukuran file terlalu besar. Maksimal 5MB');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const preview = document.getElementById('filePreview');
+                const previewImage = document.getElementById('previewImage');
+                previewImage.src = e.target.result;
+                preview.style.display = 'flex';
+                document.getElementById('fileUploadArea').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeFile() {
+            document.getElementById('proofImage').value = '';
+            document.getElementById('filePreview').style.display = 'none';
+            document.getElementById('fileUploadArea').style.display = 'block';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Nomor rekening disalin!');
+            });
+        }
+
+        function validateForm() {
+            const contactPersonId = document.getElementById('ContactPersonId').value;
+            const amount = document.getElementById('transferAmount').value;
+            const proofImage = document.getElementById('proofImage').files.length;
+
+            if (!contactPersonId) {
+                alert('Silakan pilih contact person terlebih dahulu');
+                return false;
+            }
+
+            if (!amount || amount <= 0) {
+                alert('Silakan masukkan jumlah transfer yang valid');
+                return false;
+            }
+
+            if (proofImage === 0) {
+                alert('Silakan upload bukti transfer');
+                return false;
+            }
+
+            return true;
+        }
+
+        function showConfirmationModal() {
+            // Summary data
+            const summary = {
+                amount: document.getElementById('transferAmount').value,
+                paymentType: document.querySelector('input[name="paymentType"]:checked').value,
+                contact: document.getElementById('selectedContactName').textContent,
+                date: document.getElementById('transferDate').value
+            };
+
+            // Show confirmation (implement your modal here)
+            alert('Konfirmasi Pembayaran:\n' +
+                'Jumlah: Rp ' + parseInt(summary.amount).toLocaleString('id-ID') + '\n' +
+                'Jenis: ' + (summary.paymentType === 'FullPayment' ? 'Pembayaran Penuh' : 'DP') + '\n' +
+                'Contact: ' + summary.contact + '\n' +
+                'Tanggal: ' + new Date(summary.date).toLocaleString('id-ID'));
+
+            // Submit form
+            document.getElementById('paymentForm').submit();
+        }
+
+        function goBack() {
+            if (confirm('Kembali? Perubahan yang belum disimpan akan hilang.')) {
+                window.history.back();
+            }
+        }
+    </script>
+}

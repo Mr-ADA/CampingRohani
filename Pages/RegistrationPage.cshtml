@@ -1,0 +1,242 @@
+﻿@page
+@model CampingRohani.Pages.RegistrationPageModel
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<section class="registration-form-section">
+    <div class="registration-form-container">
+        <div class="form-header">
+            @if (Model.SelectedCamp != null)
+            {
+                <h2><span>Daftar</span> @Model.SelectedCamp.CampName</h2>
+                <p>
+                    <strong>@Model.SelectedCamp.StartDate.ToString("dd MMMM", new System.Globalization.CultureInfo("id-ID"))</strong>
+                    hingga
+                    <strong>@Model.SelectedCamp.EndDate.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("id-ID"))</strong>
+                </p>
+                <p class="mt-2">Isi formulir di bawah dengan data pribadi Anda yang valid</p>
+            }
+            else
+            {
+                <h2><span>Daftar</span> Sekarang</h2>
+                <p>Silakan pilih jenis camping terlebih dahulu</p>
+            }
+        </div>
+
+        @if(Model.SelectedCamp != null)
+        {
+            <form id="registrationForm" method="post" class="registration-form">
+                <!-- PARTICIPANT SECTION -->
+                <div class="form-section">
+                    <h4 class="section-title">
+                        <i data-feather="user"></i> Data Pribadi
+                    </h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="participantName" class="form-label">Nama Lengkap <span class="required">*</span></label>
+                            <input type="text" asp-for="Participant.Name" class="form-control" id="participantName" name="participant.Name" placeholder="Contoh: Budi Santoso" required>
+                            <small class="form-hint">Pastikan nama sesuai dengan kartu identitas</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participantEmail" class="form-label">Email <span class="required">*</span></label>
+                            <input type="email" asp-for="Participant.Email" class="form-control" id="participantEmail" name="participant.Email" placeholder="contoh@email.com" required>
+                            <small class="form-hint">Email aktif untuk notifikasi registrasi</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="participantPhone" class="form-label">Nomor Telepon <span class="required">*</span></label>
+                            <input type="tel" asp-for="Participant.Phone" class="form-control" id="participantPhone" name="participant.Phone" placeholder="+62 812 3456 7890" required>
+                            <small class="form-hint">Gunakan format: +62 atau 0812...</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participantParish" class="form-label">Paroki <span class="required">*</span></label>
+                            <input type="text" asp-for="Participant.Parish" class="form-control" id="participantParish" name="participant.Parish" placeholder="Contoh: Paroki Santo Petrus" required>
+                            <small class="form-hint">Nama paroki atau gereja asal Anda</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="participantRegion" class="form-label">Wilayah <span class="required">*</span></label>
+                            <input type="text" asp-for="Participant.Region.RegionName" class="form-control" id="participantRegion" name="participant.Region" placeholder="Contoh: Jakarta, Bogor, Tangerang" required>
+                            <small class="form-hint">Kota atau wilayah domisili</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participantAge" class="form-label">Usia <span class="required">*</span></label>
+                            <input type="number" asp-for="Participant.Age" class="form-control" id="participantAge" name="participant.Age" placeholder="Contoh: 25" min="1" max="120" required>
+                            <small class="form-hint">Usia pada saat kegiatan dimulai</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REGISTRATION SECTION -->
+                <div class="form-section">
+                    <h4 class="section-title">
+                        <i data-feather="calendar"></i> Pilihan Camping
+                    </h4>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="campId" class="form-label">Jenis Camping <span class="required">*</span></label>
+                            <select class="form-control" id="campId" name="registration.CampId" required>
+                                <option value="">-- Pilih Jenis Camping --</option>
+                                <option value="camp-sd">Camp SD (Kelas IV - VII)</option>
+                                <option value="camp-siswa">Camp Siswa (Kelas VIII - XII)</option>
+                                <option value="camp-mahasiswa">Camp Mahasiswa dan Pekerja Muda</option>
+                            </select>
+                            <small class="form-hint">Pilih sesuai dengan usia atau tingkat pendidikan</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="registrationNotes" class="form-label">Catatan Khusus (Opsional)</label>
+                            <textarea class="form-control" asp-for="Participant.AdditionalDescription" id="registrationNotes" name="registration.Notes" rows="4" placeholder="Contoh: Alergi makanan, kebutuhan khusus, dll..."></textarea>
+                            <small class="form-hint">Informasi tambahan yang ingin kami ketahui</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TERMS & CONDITION -->
+                <div class="form-section">
+                    <div class="form-group checkbox-group d-inline">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        <label for="agreeTerms" class="checkbox-label">
+                            Saya telah membaca dan menyetujui <a href="#" class="terms-link">syarat dan ketentuan</a> kegiatan camping
+                        </label>
+                        <span class="required">*</span>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" id="cancelBtn">
+                        <i data-feather="x"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-submit" id="submitBtn">
+                        <i data-feather="check"></i> Daftar
+                    </button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                <p>Silakan pilih jenis camping dari halaman utama untuk melanjutkan pendaftaran.</p>
+                <a href="/" class="btn btn-primary">Kembali ke Halaman Utama</a>
+            </div>
+        }
+
+    </div>
+</section>
+
+<!-- CONFIRMATION MODAL -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content confirmation-modal-content">
+            <div class="modal-header confirmation-modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">
+                    <i data-feather="check-circle"></i> Konfirmasi Pendaftaran
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body confirmation-modal-body">
+                <p>Berikut adalah ringkasan data pendaftaran Anda:</p>
+                <div class="confirmation-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Nama:</span>
+                        <span class="detail-value" id="confirmName">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value" id="confirmEmail">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Telepon:</span>
+                        <span class="detail-value" id="confirmPhone">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Paroki:</span>
+                        <span class="detail-value" id="confirmParish">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Wilayah:</span>
+                        <span class="detail-value" id="confirmRegion">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Usia:</span>
+                        <span class="detail-value" id="confirmAge">-</span>
+                    </div>
+                    <div class="detail-item border-top">
+                        <span class="detail-label">Jenis Camping:</span>
+                        <span class="detail-value" id="confirmCamp">-</span>
+                    </div>
+                </div>
+                <p class="confirmation-note">Pastikan semua data di atas sudah benar sebelum menyelesaikan pendaftaran.</p>
+            </div>
+            <div class="modal-footer confirmation-modal-footer">
+                <a class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i data-feather="edit"></i> Ubah Data
+                </a>
+                <a class="btn btn-submit" id="confirmSubmitBtn">
+                    <i data-feather="send"></i> Kirim Pendaftaran
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registrationForm');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+
+            // Cancel button - go back to home page
+            cancelBtn.addEventListener('click', function () {
+                if (confirm('Batalkan pendaftaran? Data yang sudah diisi akan hilang.')) {
+                    window.location.href = '/';
+                }
+            });
+
+            // Submit button - show confirmation modal
+            submitBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                // Populate confirmation modal
+                document.getElementById('confirmName').textContent = document.getElementById('participantName').value;
+                document.getElementById('confirmEmail').textContent = document.getElementById('participantEmail').value;
+                document.getElementById('confirmPhone').textContent = document.getElementById('participantPhone').value;
+                document.getElementById('confirmParish').textContent = document.getElementById('participantParish').value;
+                document.getElementById('confirmRegion').textContent = document.getElementById('participantRegion').value;
+                document.getElementById('confirmAge').textContent = document.getElementById('participantAge').value;
+
+                const campSelect = document.getElementById('campId');
+                document.getElementById('confirmCamp').textContent = campSelect.options[campSelect.selectedIndex].text;
+
+                // Show modal
+                confirmationModal.show();
+            });
+
+            // Confirm submit button - submit the form
+            confirmSubmitBtn.addEventListener('click', function () {
+                form.submit();
+            });
+        });
+    </script>
+}

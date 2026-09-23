@@ -159,104 +159,422 @@ body {
 /* ============================================
    REGISTRATION SECTION STYLING
    ============================================ */
-.registration {
-    padding: 4rem 6% 1.3rem;
-    color: var(--black-color);
+.registration-section {
+    padding: 6rem 7%;
+    background-color: var(--bg);
 }
 
-    .registration p {
-        color: #000;
-        text-align: center;
-        max-width: 30rem;
-        margin: auto;
-        font-weight: 100;
-        line-height: 1.6;
+.registration-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+    .section-title span {
+        color: var(--primary);
+        display: inline;
     }
 
-    .registration h2 {
-        text-align: center;
-        font-size: 2.6rem;
-        margin-bottom: 3rem;
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* EVENTS GRID */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.event-card {
+    background-color: #fff;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+    .event-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
-        .registration h2 span {
-            color: var(--primary);
-        }
+.card-image {
+    height: 140px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 1.2rem;
+}
 
-    .registration .row .card {
-        width: 33%;
-        flex: 0 0 auto;
+.card-badge {
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+}
+
+.badge-text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin: 0 0 0.4rem 0;
+}
+
+.card-subtitle {
+    font-size: 0.95rem;
+    color: #888;
+    margin: 0 0 1.5rem 0;
+    font-weight: 500;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.detail-row {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+}
+
+    .detail-row svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--primary);
+        flex-shrink: 0;
+        margin-top: 0.2rem;
     }
 
-    .registration .card {
+    .detail-row > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+.detail-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.detail-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary);
+    margin-top: 0.2rem;
+}
+
+.detail-row.highlight .detail-value {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.card-description {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: auto;
+    margin-top: 0.5rem;
+}
+
+.btn-register {
+    align-self: flex-start;
+    padding: 0.9rem 2rem;
+    background-color: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 0.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+    .btn-register:hover {
+        background-color: #d4910f;
+        transform: translateX(4px);
+        box-shadow: 0 4px 12px rgba(242, 180, 1, 0.3);
+    }
+
+    .btn-register svg {
+        width: 18px;
+        height: 18px;
+    }
+
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
+.contact-section {
+    padding: 5rem 7%;
+    background-color: var(--bg);
+}
+
+.contact-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.contact-section .section-header {
+    margin-bottom: 4rem;
+}
+
+.contact-section .section-title {
+    color: #fff;
+}
+
+.contact-section .section-subtitle {
+    color: #ccc;
+}
+
+.contact-section .section-title svg {
+    width: 36px;
+    height: 36px;
+    stroke: var(--primary);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-card {
+    background-color: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+    .contact-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+.contact-card-header {
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary) 0%, #d4910f 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+    .contact-card-header svg {
+        width: 48px;
+        height: 48px;
+    }
+
+.contact-card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+    .contact-card-body h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--secondary);
+        margin: 0 0 1rem 0;
+    }
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.contact-person {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+    margin: 0;
+}
+
+.contact-phone {
+    font-size: 0.9rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+    .contact-phone svg {
+        width: 16px;
+        height: 16px;
+    }
+
+.contact-card-footer {
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+}
+
+.whatsapp-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+    .whatsapp-badge svg {
+        width: 16px;
+        height: 16px;
+    }
+
+.contact-fallback {
+    text-align: center;
+    padding: 2rem;
+    color: #ccc;
+}
+
+/* Contact Search Form */
+.contact-search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.search-input-group {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 500px;
+    align-items: center;
+}
+
+.contact-search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+    .contact-search-input:focus {
+        outline: none;
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+.contact-search-button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+    .contact-search-button:hover {
         background-color: transparent;
     }
 
-    .registration .card-header {
-        background-color: #ffc107;
-        color: #ffffff;
-    }
-
-    .registration .card-body {
-        background-color: #ffffff;
-        color: #212529;
-    }
-
-        .registration .card-body .btn {
-            background-color: var(--primary);
-        }
-
-/* ============================================
-   CONTACT SECTION STYLING
-   ============================================ */
-.contact h2 {
-    margin-bottom: 1rem;
-}
-
-.contact .row {
+.contact-search-reset {
+    padding: 0.75rem 1rem;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
     display: flex;
-    margin-top: 2rem;
-    background-color: #222;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
 }
 
-    .contact .row .map {
-        flex: 1 1 45rem;
-        width: 100%;
-        object-fit: cover;
+    .contact-search-reset:hover {
+        background-color: #5a6268;
+        color: white;
     }
 
-    .contact .row form {
-        flex: 1 1 45rem;
-        padding: 5rem 2rem;
-        text-align: center;
+/* Contact Fallback */
+.contact-fallback {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+}
+
+    .contact-fallback i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.3;
     }
 
-        .contact .row form .input-group {
-            display: flex;
-            align-items: center;
-            margin-top: 2rem;
-            background-color: var(--bg);
-            border: 1px solid #eee;
-            padding-left: 2rem;
-        }
-
-            .contact .row form .input-group input {
-                width: 100%;
-                padding: 2rem;
-                font-size: 1.7rem;
-                background: none;
-                color: #fff;
-            }
-
-        .contact .row form button {
-            margin-top: 3rem;
-            display: inline-block;
-            padding: 1rem 3rem;
-            font-size: 1.7rem;
-            color: #fff;
-            background-color: var(--primary);
-            cursor: pointer;
-        }
+    .contact-fallback p {
+        font-size: 1.1rem;
+        color: #666;
+    }
 
 /* ============================================
    FOOTER STYLING
@@ -264,8 +582,8 @@ body {
 footer {
     background-color: var(--primary);
     text-align: center;
-    padding: 1rem 0 3rem;
-    margin-top: 3rem;
+    padding: 1rem 0 2rem;
+    margin-top: 2rem;
 }
 
     footer .socials {
@@ -295,7 +613,7 @@ footer {
             }
 
     footer .credit {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 
         footer .credit a {
@@ -306,16 +624,191 @@ footer {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
+@media (max-width: 1024px) {
+    .events-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
 
-/* Laptop - Max Width 1366px */
-@media (max-width: 1366px) {
-    html {
-        font-size: 75%;
+    .bring-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
-/* Tablet - Max Width 758px */
 @media (max-width: 758px) {
+    .registration-section,
+    .what-to-bring-section,
+    .contact-section {
+        padding: 3rem 5%;
+    }
+
+    .section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .events-grid,
+    .contact-grid {
+        gap: 1.5rem;
+    }
+
+    .event-card {
+        border-radius: 0.8rem;
+    }
+
+    .card-image {
+        height: 120px;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .card-description {
+        font-size: 0.9rem;
+    }
+
+    .btn-register {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .payment-info {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .registration-section,
+    .what-to-bring-section,
+    .contact-section {
+        padding: 2rem 4%;
+    }
+
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .events-grid,
+    .contact-grid,
+    .bring-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card-image {
+        height: 100px;
+    }
+
+    .card-content {
+        padding: 1.2rem;
+    }
+
+    .card-details {
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .detail-value {
+        font-size: 0.9rem;
+    }
+
+    .detail-row.highlight .detail-value {
+        font-size: 1.1rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .items-list {
+        gap: 0.6rem;
+        padding: 1rem;
+    }
+
+    .item {
+        gap: 0.8rem;
+        padding: 0.6rem;
+    }
+
+    .important-notes {
+        padding: 1rem;
+    }
+
+        .important-notes h4 {
+            font-size: 1rem;
+        }
+
+    .contact-card-body {
+        padding: 1rem;
+    }
+
+        .contact-card-body h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+    .contact-card-footer {
+        padding: 0.8rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-input-group {
+        flex-wrap: wrap;
+    }
+
+    .contact-search-input {
+        min-width: 100%;
+        order: 1;
+    }
+
+    .contact-search-button,
+    .contact-search-reset {
+        order: 2;
+        flex: 1;
+    }
+}
+
+
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Laptop - Max Width 1366px */
+/*@media (max-width: 1366px) {
+    html {
+        font-size: 75%;
+    }
+}*/
+
+/* Tablet - Max Width 758px */
+/*@media (max-width: 758px) {
     html {
         font-size: 62.5%;
     }
@@ -369,11 +862,11 @@ footer {
         .contact .row form {
             padding-top: 0;
         }
-}
+}*/
 
 /* Mobile Phones - Max Width 450px */
-@media (max-width: 450px) {
+/*@media (max-width: 450px) {
     html {
         font-size: 55%;
     }
-}
+}*/

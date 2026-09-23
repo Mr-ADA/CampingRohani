@@ -1,0 +1,734 @@
+﻿/* ============================================
+   PAYMENT PAGE STYLING
+   ============================================ */
+.payment-section {
+    padding: 3rem 7%;
+    background-color: var(--bg);
+    min-height: 100vh;
+}
+
+.payment-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* PAYMENT HEADER */
+.payment-header {
+    background: linear-gradient(135deg, var(--primary) 0%, #d4910f 100%);
+    color: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+    .status-badge svg {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+    }
+
+    .status-badge[data-status="notpaid"] svg {
+        stroke: #ffc107;
+    }
+
+    .status-badge[data-status="pending"] svg {
+        stroke: #0dcaf0;
+    }
+
+    .status-badge[data-status="verified"] svg {
+        stroke: #198754;
+    }
+
+    .status-badge[data-status="success"] svg {
+        stroke: #198754;
+    }
+
+.status-content h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+.status-message {
+    font-size: 1.2rem;
+    margin: 0.5rem 0 0;
+    opacity: 0.95;
+}
+
+.payment-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+}
+
+/* PAYMENT CONTENT LAYOUT */
+.payment-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* LEFT SIDE - CONTACT & PAYMENT TYPE */
+.payment-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* CONTACT SECTION */
+.contact-section {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+    font-size: 1.4rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 600;
+}
+
+    .section-title svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--primary);
+    }
+
+.region-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.region-tab {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #ddd;
+    background-color: #fff;
+    color: var(--secondary);
+    border-radius: 2rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+    .region-tab:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .region-tab.active {
+        background-color: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+    }
+
+.contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.contact-card {
+    border: 2px solid #eee;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+    .contact-card:hover {
+        border-color: var(--primary);
+        box-shadow: 0 4px 12px rgba(242, 180, 1, 0.15);
+    }
+
+.contact-header {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .contact-header h4 {
+        margin: 0;
+        color: var(--secondary);
+        font-size: 1.1rem;
+    }
+
+.contact-role {
+    font-size: 0.75rem;
+    background-color: var(--primary);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.contact-body {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.detail-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: var(--secondary);
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+    .detail-label svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--primary);
+    }
+
+.detail-value {
+    color: #495057;
+    word-break: break-word;
+}
+
+.bank-account {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.account-number {
+    flex: 1;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--primary);
+    background-color: #f8f9fa;
+}
+
+.btn-copy {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.3s ease;
+}
+
+    .btn-copy:hover {
+        background-color: #d4910f;
+    }
+
+    .btn-copy svg {
+        width: 16px;
+        height: 16px;
+    }
+
+.contact-footer {
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.btn-select-contact {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-select-contact:hover,
+    .btn-select-contact.active {
+        background-color: var(--primary);
+        color: #fff;
+    }
+
+/* PAYMENT TYPE SECTION */
+.payment-type-section {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.payment-type-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.payment-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+    .payment-option input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 0.2rem;
+        cursor: pointer;
+        accent-color: var(--primary);
+    }
+
+.option-label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.option-title {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+.option-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.2rem;
+}
+
+/* RIGHT SIDE - PAYMENT FORM */
+.payment-right {
+    position: sticky;
+    top: 20px;
+}
+
+.payment-form {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.6rem;
+}
+
+.required {
+    color: #dc3545;
+}
+
+.amount-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f8f9fa;
+    border: 2px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+    .amount-input-group:focus-within {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(242, 180, 1, 0.25);
+    }
+
+.currency {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.amount-input {
+    flex: 1;
+    border: none !important;
+    background: none !important;
+    padding: 0.8rem 0 !important;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+    .amount-input:focus {
+        box-shadow: none !important;
+    }
+
+.amount-note {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+
+    .amount-note .success {
+        color: #198754;
+        font-weight: 600;
+    }
+
+    .amount-note .warning {
+        color: #ffc107;
+        font-weight: 600;
+    }
+
+    .amount-note .info {
+        color: #0dcaf0;
+        font-weight: 600;
+    }
+
+.form-control {
+    padding: 0.8rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: var(--secondary);
+}
+
+    .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(242, 180, 1, 0.25);
+        outline: none;
+    }
+
+    .form-control::placeholder {
+        color: #999;
+    }
+
+.form-hint {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.4rem;
+}
+
+.selected-contact-box {
+    border: 2px solid #eee;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+}
+
+.text-muted {
+    color: #6c757d;
+    margin: 0;
+}
+
+.contact-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+    .contact-info-item:last-child {
+        border-bottom: none;
+    }
+
+    .contact-info-item .label {
+        font-weight: 600;
+        color: var(--secondary);
+    }
+
+    .contact-info-item .value {
+        color: var(--primary);
+        font-weight: 600;
+    }
+
+/* FILE UPLOAD */
+.file-upload-area {
+    border: 2px dashed #ddd;
+    border-radius: 0.8rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+    .file-upload-area:hover,
+    .file-upload-area.drag-over {
+        border-color: var(--primary);
+        background-color: rgba(242, 180, 1, 0.05);
+    }
+
+.file-input {
+    display: none;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+    .upload-content svg {
+        width: 48px;
+        height: 48px;
+        stroke: var(--primary);
+    }
+
+.upload-text {
+    font-weight: 600;
+    color: var(--secondary);
+    margin: 0;
+}
+
+.upload-hint {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.file-preview {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    position: relative;
+}
+
+    .file-preview img {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 0.5rem;
+        border: 2px solid var(--primary);
+    }
+
+.btn-remove-file {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-remove-file:hover {
+        background-color: #c82333;
+    }
+
+/* FORM ACTIONS */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #eee;
+}
+
+.btn {
+    padding: 0.9rem 1.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+    .btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+.btn-submit {
+    flex: 1;
+    background-color: var(--primary);
+    color: #fff;
+}
+
+    .btn-submit:hover {
+        background-color: #d4910f;
+        box-shadow: 0 4px 12px rgba(242, 180, 1, 0.3);
+        transform: translateY(-2px);
+    }
+
+.btn-secondary {
+    flex: 1;
+    background-color: #6c757d;
+    color: #fff;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+/* ============================================
+   RESPONSIVE DESIGN - Payment Page
+   ============================================ */
+@media (max-width: 1024px) {
+    .payment-content {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-right {
+        position: static;
+    }
+
+    .payment-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 758px) {
+    .payment-section {
+        padding: 2rem 7%;
+    }
+
+    .payment-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .status-badge {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .payment-info {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .region-tabs {
+        justify-content: center;
+    }
+
+    .region-tab {
+        flex: 0 1 auto;
+    }
+
+    .contact-card {
+        width: 100%;
+    }
+
+    .contact-detail {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .detail-label {
+        min-width: auto;
+    }
+
+    .bank-account {
+        flex-direction: column;
+    }
+
+    .btn-copy {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    .payment-section {
+        padding: 1.5rem 4%;
+    }
+
+    .payment-header {
+        padding: 1.5rem;
+    }
+
+    .status-badge svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .status-content h2 {
+        font-size: 1.4rem;
+    }
+
+    .payment-form {
+        padding: 1.5rem;
+    }
+
+    .form-label {
+        font-size: 0.95rem;
+    }
+
+    .file-upload-area {
+        padding: 1.5rem;
+    }
+}
